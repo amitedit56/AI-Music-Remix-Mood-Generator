@@ -4,14 +4,13 @@ import time
 import sys
 import os
 import random
-
 sys.path.append(os.path.dirname(__file__))
 from backend.mood_detector import detect_mood, mood_to_genre
 from backend.music_generator import generate_music
 from backend.audio_utils import apply_mood_effects, get_file_info
 
 st.set_page_config(
-    page_title="StudioAI — Music Remix & Mood Generator",
+    page_title="StudioAI — Music Remix",
     page_icon="🎚️",
     layout="wide"
 )
@@ -85,12 +84,12 @@ html, .stApp {
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #F1F5F9 30%, #A78BFA 65%, #00D4FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #F1F5F9;
     margin-bottom: 1rem;
 }
+
+.hero-title .accent-purple { color: #A78BFA; }
+.hero-title .accent-cyan { color: #00D4FF; }
 
 .hero-sub {
     font-size: 16px;
@@ -441,7 +440,7 @@ hr { border-color: rgba(255,255,255,0.07) !important; }
 st.markdown("""
 <div class="hero-wrap">
     <div class="hero-eyebrow">🎚️ &nbsp;Studio AI</div>
-    <div class="hero-title">Transform Any Track<br>Into Something New</div>
+    <div class="hero-title">Transform <span class="accent-purple">Any Track</span><br>Into Something <span class="accent-cyan">New</span></div>
     <p class="hero-sub">Upload your audio, set the mood and genre,<br>and let the model reimagine it.</p>
     <div class="waveform">
         <span></span><span></span><span></span><span></span>
@@ -587,29 +586,111 @@ if generate:
 
             confidence_display = "Your Choice"
 
-            prompt_html = f'<p style="font-size:13px;color:#A78BFA;margin-bottom:8px;">💬 "{prompt}"</p>' if prompt.strip() else ""
+            # Final safety net: strip any stray backticks/angle-brackets/HTML-entities from AI text
+            import html as html_module
+            import re as re_module
 
-            st.markdown(f"""
+            def _safe(text):
+                t = str(text)
+                t = html_module.unescape(t)              # decode &lt; &gt; &quot; etc.
+                t = re_module.sub(r'<[^>]*>?', '', t)     # strip any tag-like or partial-tag content
+                t = t.replace('`', '').replace('<', '').replace('>', '')
+                t = re_module.sub(r'\s+', ' ', t).strip()
+                return t
+
+            safe_title       = _safe(music_result['title'])
+            safe_description = _safe(music_result['description'])
+            if len(safe_description) < 10:
+                safe_description = f"A {mood.lower()} {genre.lower()} remix crafted to match your selected vibe."
+            safe_energy      = _safe(music_result['energy_level'])
+            safe_key         = _safe(music_result['key'])
+
+            safe_filename    = _safe(uploaded_file.name)
+
+            prompt_html = f'<p class="prompt-line">💬 "{_safe(prompt)}"</p>' if prompt.strip() else ""
+
+            result_card_html = f"""
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <style>
+                * {{ box-sizing: border-box; margin: 0; }}
+                body {{ font-family: 'Inter', sans-serif; background: transparent; }}
+                .result-card {{
+                    background: #0F1424;
+                    border: 1px solid rgba(255,255,255,0.07);
+                    border-radius: 20px;
+                    padding: 28px 28px 24px;
+                    position: relative;
+                    overflow: hidden;
+                    color: #F1F5F9;
+                }}
+                .result-card::before {{
+                    content: '';
+                    position: absolute;
+                    top: 0; left: 0; right: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, #7C3AED, #00D4FF, #7C3AED);
+                }}
+                .result-title {{
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-size: 18px; font-weight: 700;
+                    color: #F1F5F9; margin-bottom: 4px;
+                }}
+                .result-filename {{ font-size: 13px; color: #475569; margin-bottom: 8px; }}
+                .prompt-line {{ font-size: 13px; color: #A78BFA; margin-bottom: 8px; }}
+                .result-desc {{ font-size: 14px; color: #94A3B8; margin-bottom: 12px; }}
+                .tag-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 1rem 0 1.4rem; }}
+                .tag {{
+                    background: rgba(124,58,237,0.15);
+                    border: 1px solid rgba(124,58,237,0.3);
+                    border-radius: 8px; padding: 5px 12px;
+                    font-size: 13px; font-weight: 500; color: #C4B5FD;
+                }}
+                .tag.cyan {{
+                    background: rgba(0,212,255,0.1);
+                    border-color: rgba(0,212,255,0.3);
+                    color: #67E8F9;
+                }}
+                .stat-grid {{ display: flex; gap: 10px; flex-wrap: wrap; }}
+                .stat-pill {{
+                    flex: 1; min-width: 100px;
+                    background: rgba(255,255,255,0.04);
+                    border: 1px solid rgba(255,255,255,0.07);
+                    border-radius: 12px; padding: 12px 14px; text-align: center;
+                }}
+                .stat-pill .val {{
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-size: 18px; font-weight: 700; color: #A78BFA;
+                }}
+                .stat-pill .lbl {{
+                    font-size: 11px; color: #475569;
+                    text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px;
+                }}
+            </style>
             <div class="result-card">
-                <p style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#F1F5F9;margin-bottom:4px;">
-                    {music_result['title']}
-                </p>
-                <p style="font-size:13px;color:#475569;margin-bottom:8px;">{uploaded_file.name}</p>
+                <p class="result-title">{safe_title}</p>
+                <p class="result-filename">{safe_filename}</p>
                 {prompt_html}
-                <p style="font-size:14px;color:#94A3B8;margin-bottom:12px;">{music_result['description']}</p>
+                <p class="result-desc">{safe_description}</p>
                 <div class="tag-row">
                     <span class="tag">🎭 {mood}</span>
                     <span class="tag">🎵 {genre}</span>
                     <span class="tag cyan">🎧 {quality}</span>
-                    <span class="tag">⚡ {music_result['energy_level']}</span>
+                    <span class="tag">⚡ {safe_energy}</span>
                 </div>
                 <div class="stat-grid">
                     <div class="stat-pill"><div class="val">{music_result['bpm']}</div><div class="lbl">BPM</div></div>
                     <div class="stat-pill"><div class="val">{confidence_display}</div><div class="lbl">Mood Source</div></div>
-                    <div class="stat-pill"><div class="val">{music_result['key']}</div><div class="lbl">Key</div></div>
+                    <div class="stat-pill"><div class="val">{safe_key}</div><div class="lbl">Key</div></div>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            """
+
+            # Absolute final guard: backticks anywhere break rendering
+            result_card_html = result_card_html.replace('`', "'")
+
+            components.html(result_card_html, height=320, scrolling=True)
 
             st.write("")
 

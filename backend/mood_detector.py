@@ -100,10 +100,11 @@ def detect_mood_from_prompt(prompt: str, mood: str, genre: str) -> dict:
         ]
 
         payload = {
-            "model"      : "llama-3.3-70b-versatile",
-            "messages"   : messages,
-            "temperature": 0.7,
-            "max_tokens" : 300
+            "model"          : "llama-3.3-70b-versatile",
+            "messages"       : messages,
+            "temperature"    : 0.7,
+            "max_tokens"     : 300,
+            "response_format": {"type": "json_object"}
         }
 
         response = requests.post(

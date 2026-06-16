@@ -48,13 +48,14 @@ def generate_music(mood: str, genre: str, user_prompt: str = "", duration: int =
                 When given a music style description, generate a detailed remix plan.
                 Return ONLY valid JSON with these fields:
                 - title: creative name for this remix (e.g. "Midnight Lo-fi Chill")
-                - description: vivid 2-3 sentence description of how the music sounds
+                - description: vivid 2-3 sentence PLAIN TEXT description of how the music sounds (no HTML, no markdown, no code, just natural language sentences)
                 - bpm: suggested BPM number (integer)
                 - key: musical key (e.g. "C minor", "G major")
-                - instruments: list of 4-5 instruments
-                - effects: list of 3-4 audio effects to apply
-                - remix_tips: list of 3 specific tips to remix this track
+                - instruments: list of 4-5 instrument names as plain text strings
+                - effects: list of 3-4 audio effect names as plain text strings
+                - remix_tips: list of 3 specific tips to remix this track, as plain text strings
                 - energy_level: Low / Medium / High
+                IMPORTANT: All text values must be plain natural language. Never include HTML tags, <div>, <span>, <p>, CSS, or any markup of any kind in any field.
                 No extra text, only JSON."""
             },
             {
@@ -64,10 +65,11 @@ def generate_music(mood: str, genre: str, user_prompt: str = "", duration: int =
         ]
 
         payload = {
-            "model"      : "llama-3.3-70b-versatile",
-            "messages"   : messages,
-            "temperature": 0.8,
-            "max_tokens" : 500
+            "model"          : "llama-3.3-70b-versatile",
+            "messages"       : messages,
+            "temperature"    : 0.7,
+            "max_tokens"     : 500,
+            "response_format": {"type": "json_object"}
         }
 
         response = requests.post(
@@ -95,16 +97,36 @@ def generate_music(mood: str, genre: str, user_prompt: str = "", duration: int =
 
             result = json.loads(content_clean, strict=False)
 
+            def clean_text(value, default=""):
+                """Strip HTML/CSS/markdown markup; if too much was removed, use default instead"""
+                if not isinstance(value, str):
+                    return default
+                original_len = len(value)
+                cleaned = re.sub(r'<[^>]+>', '', value)
+                cleaned = re.sub(r'\{[^}]*\}', '', cleaned)  # remove CSS-like {...} blocks
+                cleaned = cleaned.replace('`', '').replace('"', "'")  # remove backticks, normalize quotes
+                cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+                # If more than 30% of the text was markup/CSS, it's unreliable — use default
+                if original_len > 0 and len(cleaned) < original_len * 0.6:
+                    return default
+                return cleaned if cleaned else default
+
+            def clean_list(items):
+                """Clean each item in a list of strings"""
+                if not isinstance(items, list):
+                    return []
+                return [clean_text(i) for i in items if isinstance(i, str) and clean_text(i)]
+
             return {
                 "success"     : True,
-                "title"       : result.get("title", f"{mood} {genre} Remix"),
-                "description" : result.get("description", ""),
+                "title"       : clean_text(result.get("title"), f"{mood} {genre} Remix"),
+                "description" : clean_text(result.get("description"), f"A {mood.lower()} {genre.lower()} remix tailored to your selected vibe."),
                 "bpm"         : result.get("bpm", 120),
-                "key"         : result.get("key", "C major"),
-                "instruments" : result.get("instruments", []),
-                "effects"     : result.get("effects", []),
-                "remix_tips"  : result.get("remix_tips", []),
-                "energy_level": result.get("energy_level", "Medium"),
+                "key"         : clean_text(result.get("key"), "C major"),
+                "instruments" : clean_list(result.get("instruments", [])),
+                "effects"     : clean_list(result.get("effects", [])),
+                "remix_tips"  : clean_list(result.get("remix_tips", [])),
+                "energy_level": clean_text(result.get("energy_level"), "Medium"),
                 "prompt_used" : prompt
             }
 
