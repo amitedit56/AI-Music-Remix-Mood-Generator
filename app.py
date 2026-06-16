@@ -785,6 +785,6 @@ if generate:
 # ─── Footer ──────────────────────────────────────────────────────────────────
 
 st.markdown(
-    "<div class='footer'>Studio AI &nbsp;·&nbsp; Powered by Streamlit</div>",
+    "<div class='footer'>Studio AI &nbsp;·&nbsp; Developed by Amit Bind</div>",
     unsafe_allow_html=True
 )
