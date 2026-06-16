@@ -108,8 +108,8 @@ Before/After comparison player + Download
 
 ## 📸 Screenshots
 
-> Upload your song → select mood & genre → get AI remix plan with real audio processing
-> <img width="1177" height="841" alt="Screenshot 2026-06-16 092717" src="https://github.com/user-attachments/assets/f8b85ee6-4e0e-45a5-9b59-0b786f4d40f0" />
+> Upload your song → select mood & genre → get AI remix plan with real audio processing>
+<img width="1177" height="841" alt="Screenshot 2026-06-16 092717" src="https://github.com/user-attachments/assets/f8b85ee6-4e0e-45a5-9b59-0b786f4d40f0" />
 <img width="1165" height="842" alt="image" src="https://github.com/user-attachments/assets/288617d3-01e2-4f6d-8224-7b28dd3d0965" />
 <img width="1192" height="702" alt="image" src="https://github.com/user-attachments/assets/6fcd2064-39f5-46b5-8899-463496b0368c" />
 <img width="1235" height="841" alt="image" src="https://github.com/user-attachments/assets/c4baa1d3-7fa7-43ea-8871-46e268740829" />
@@ -118,6 +118,6 @@ Before/After comparison player + Download
 
 <div align="center">
 
-Made with ❤️ for internship demo &nbsp;|&nbsp; **Studio AI**
+Made with ❤️ for internship Project &nbsp;|&nbsp; **Studio AI**
 
 </div>
