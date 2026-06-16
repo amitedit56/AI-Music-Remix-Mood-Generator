@@ -8,7 +8,7 @@
 [![Groq](https://img.shields.io/badge/AI-Groq%20LLaMA%203-00D4FF?style=for-the-badge&logo=meta&logoColor=white)](https://groq.com)
 [![Python](https://img.shields.io/badge/Python-3.12-7C3AED?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-[🚀 Live Demo](https://your-app-url.streamlit.app) &nbsp;|&nbsp; [📂 GitHub](https://github.com/amitedit56/AI-Music-Remix-Mood-Generator)
+[🚀 Live Demo](https://ai-music-remix-mood-generator-app9iuqjjd2ry9ur2dyh6wx.streamlit.app/) &nbsp;|&nbsp; [📂 GitHub](https://github.com/amitedit56/AI-Music-Remix-Mood-Generator)
 
 ---
 
