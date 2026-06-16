@@ -109,11 +109,10 @@ Before/After comparison player + Download
 ## 📸 Screenshots
 
 > Upload your song → select mood & genre → get AI remix plan with real audio processing
-<img width="872" height="820" alt="image" src="https://github.com/user-attachments/assets/c9450e1f-a13d-40fe-a1dc-c69410eaa0fa" />
-<img width="872" height="820" alt="image" src="https://github.com/user-attachments/assets/1fcca146-c33e-44ea-a5d4-78d70094dd70" />
-<img width="872" height="820" alt="image" src="https://github.com/user-attachments/assets/9a3c8e6c-5471-4c18-b3d4-e71e87ebfb42" />
-<img width="872" height="820" alt="image" src="https://github.com/user-attachments/assets/3b3a7199-d4e2-4467-af75-d3001cfa22ee" />
-
+<img width="1192" height="745" alt="image" src="https://github.com/user-attachments/assets/eff86ac9-f57a-4f8d-8df0-1502fb3958d2" />
+<img width="1198" height="772" alt="image" src="https://github.com/user-attachments/assets/69de46aa-dfcb-4f22-9664-78d9ab17dbd5" />
+<img width="1178" height="832" alt="image" src="https://github.com/user-attachments/assets/acc6285b-3aab-4055-8887-574892d1ea5e" />
+<img width="1187" height="837" alt="image" src="https://github.com/user-attachments/assets/e8deb18a-059d-404e-ac0d-028ce9be7e80" />
 ---
 
 <div align="center">
