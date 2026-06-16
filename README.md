@@ -109,6 +109,8 @@ Before/After comparison player + Download
 ## 📸 Screenshots
 
 > Upload your song → select mood & genre → get AI remix plan with real audio processing
+<img width="872" height="820" alt="image" src="https://github.com/user-attachments/assets/c9450e1f-a13d-40fe-a1dc-c69410eaa0fa" />
+
 
 ---
 
