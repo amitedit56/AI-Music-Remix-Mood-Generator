@@ -4,7 +4,7 @@
 
 **Transform any track into something new — powered by AI**
 
-[![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+<img width="1177" height="841" alt="image" src="https://github.com/user-attachments/assets/2abd504c-a401-4d64-a3ae-f0b7c6eb5977" />
 [![Groq](https://img.shields.io/badge/AI-Groq%20LLaMA%203-00D4FF?style=for-the-badge&logo=meta&logoColor=white)](https://groq.com)
 [![Python](https://img.shields.io/badge/Python-3.12-7C3AED?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
@@ -110,9 +110,11 @@ Before/After comparison player + Download
 
 > Upload your song → select mood & genre → get AI remix plan with real audio processing
 <img width="1192" height="745" alt="image" src="https://github.com/user-attachments/assets/eff86ac9-f57a-4f8d-8df0-1502fb3958d2" />
-<img width="1198" height="772" alt="image" src="https://github.com/user-attachments/assets/69de46aa-dfcb-4f22-9664-78d9ab17dbd5" />
-<img width="1178" height="832" alt="image" src="https://github.com/user-attachments/assets/acc6285b-3aab-4055-8887-574892d1ea5e" />
-<img width="1187" height="837" alt="image" src="https://github.com/user-attachments/assets/e8deb18a-059d-404e-ac0d-028ce9be7e80" />
+<img width="1165" height="842" alt="image" src="https://github.com/user-attachments/assets/288617d3-01e2-4f6d-8224-7b28dd3d0965" />
+<img width="1192" height="702" alt="image" src="https://github.com/user-attachments/assets/6fcd2064-39f5-46b5-8899-463496b0368c" />
+<img width="1235" height="841" alt="image" src="https://github.com/user-attachments/assets/c4baa1d3-7fa7-43ea-8871-46e268740829" />
+
+
 ---
 
 <div align="center">
